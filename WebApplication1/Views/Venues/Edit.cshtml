@@ -1,0 +1,70 @@
+﻿@model eventEasefour.Models.Venue
+
+@{
+    ViewData["Title"] = "Edit Venue";
+    var images = ViewBag.Images as List<string> ?? new List<string>();
+}
+
+<h2>@ViewData["Title"]</h2>
+<hr />
+
+<div class="row">
+    <div class="col-md-6">
+        <form asp-action="Edit" enctype="multipart/form-data">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="VenueId" />
+
+            <div class="form-group">
+                <label asp-for="VenueName" class="control-label"></label>
+                <input asp-for="VenueName" class="form-control" />
+                <span asp-validation-for="VenueName" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="Location" class="control-label"></label>
+                <input asp-for="Location" class="form-control" />
+                <span asp-validation-for="Location" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="Capacity" class="control-label"></label>
+                <input asp-for="Capacity" class="form-control" />
+                <span asp-validation-for="Capacity" class="text-danger"></span>
+            </div>
+
+            <!-- Current Image Display -->
+            <div class="form-group mt-3">
+                <label class="control-label">Current Image</label>
+                @if (images.Any())
+                {
+                    <div class="mt-2">
+                        <img src="@images.First()" class="img-thumbnail" style="max-height: 200px;" alt="Current venue image" />
+                    </div>
+                }
+                else
+                {
+                    <div class="alert alert-info mt-2">No image currently uploaded</div>
+                }
+            </div>
+
+            <!-- New Image Upload -->
+            <div class="form-group mt-3">
+                <label asp-for="ImageFile" class="control-label">Upload New Image</label>
+                <input asp-for="ImageFile" type="file" class="form-control-file" accept=".jpg,.jpeg,.png,.gif" />
+                <span asp-validation-for="ImageFile" class="text-danger"></span>
+                <small class="form-text text-muted">Allowed formats: JPG, PNG, GIF (Max 5MB)</small>
+            </div>
+
+            <div class="form-group mt-4">
+                <input type="submit" value="Save Changes" class="btn btn-primary" />
+                <a asp-action="Index" class="btn btn-secondary ml-2">Back to List</a>
+            </div>
+        </form>
+    </div>
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

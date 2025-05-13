@@ -1,0 +1,71 @@
+﻿@model ErrorViewModel
+@{
+    ViewData["Title"] = "Error";
+}
+
+<div class="container mt-5">
+    <div class="text-center">
+        <h1 class="display-4 text-danger">😢 Oops! Something went wrong.</h1>
+        <p class="lead">We encountered an unexpected issue. Please try again later.</p>
+
+        @if (Model?.ShowRequestId == true)
+        {
+            <p class="text-muted">
+                <small>Request ID: @Model.RequestId</small>
+            </p>
+        }
+
+        <hr class="my-4" />
+
+        <!-- Development Mode: Show Detailed Error -->
+        @if (Model?.ShowDetails == true)
+        {
+            <div class="alert alert-danger text-left">
+                @if (!string.IsNullOrEmpty(Model.ErrorMessage))
+                {
+                    <div class="mb-3">
+                        <h5><strong>Error Details:</strong></h5>
+                        <pre class="text-monospace bg-dark text-white p-3 rounded">@Model.ErrorMessage</pre>
+                    </div>
+                }
+
+                @if (!string.IsNullOrEmpty(Model.StackTrace))
+                {
+                    <div>
+                        <h5><strong>Stack Trace:</strong></h5>
+                        <pre class="text-monospace bg-dark text-white p-3 rounded">@Model.StackTrace</pre>
+                    </div>
+                }
+            </div>
+        }
+
+        <div class="mt-4">
+            <a href="/" class="btn btn-primary px-4">
+                <i class="fas fa-home mr-2"></i>Go to Home
+            </a>
+            <button onclick="history.back()" class="btn btn-outline-secondary ml-2">
+                <i class="fas fa-arrow-left mr-2"></i>Go Back
+            </button>
+        </div>
+    </div>
+</div>
+
+@section Styles {
+    <style>
+        .text-monospace {
+            font-family: Consolas, Monaco, 'Andale Mono', 'Ubuntu Mono', monospace;
+            font-size: 0.9rem;
+            white-space: pre-wrap;
+            word-wrap: break-word;
+        }
+
+        .rounded {
+            border-radius: 0.25rem !important;
+        }
+    </style>
+}
+
+@section Scripts {
+    <!-- Font Awesome for icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" />
+}

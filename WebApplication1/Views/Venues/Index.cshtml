@@ -1,0 +1,40 @@
+﻿@model IEnumerable<eventEasefour.Models.Venue>
+
+<h2>Manage Venues</h2>
+<hr />
+
+<table class="table table-bordered">
+    <thead>
+        <tr>
+            <th>Image</th>
+            <th>Venue Name</th>
+            <th>Location</th>
+            <th>Capacity</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var venue in Model)
+        {
+            <tr>
+                <td>
+                    @if (!string.IsNullOrEmpty(venue.ImageUrl))
+                    {
+                        <img src="@venue.ImageUrl" alt="Venue Image" style="width: 100px; height: 70px; object-fit: cover;" />
+                    }
+                    else
+                    {
+                        <span class="text-muted">No Image</span>
+                    }
+                </td>
+                <td>@venue.VenueName</td>
+                <td>@venue.Location</td>
+                <td>@venue.Capacity</td>
+                <td>
+                    <a asp-action="Edit" asp-route-id="@venue.VenueId" class="btn btn-sm btn-primary">Edit</a>
+                    <a asp-action="Delete" asp-route-id="@venue.VenueId" class="btn btn-sm btn-danger">Delete</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
